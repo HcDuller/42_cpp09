@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:51:13 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/22 22:00:16 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/23 20:01:05 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ bool isValidNumber(std::string& value){
 }
 
 void getHeaders(std::istream& in, std::string& f_header, std::string& s_header){
-	std::getline(in, f_header, ',');
+	std::getline(in, f_header, '|');
 	std::getline(in, s_header);
 	std::cout << f_header << " | " << s_header << std::endl;
 }

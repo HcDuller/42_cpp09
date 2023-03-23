@@ -3,7 +3,7 @@ CC = c++ -std=c++98
 
 CFLAGS = -Wall -Wextra -Werror -Wconversion -g3
 
-SRC = 	main.cpp
+SRC = 	main.cpp BitcoinExchange.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
