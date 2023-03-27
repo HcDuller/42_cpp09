@@ -6,12 +6,12 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:51:13 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/23 20:01:05 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:35:24 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "BitcoinExchange.hpp"
 #include <iostream>
-
 #include <string>
 #include <fstream>
 #include <cctype>
@@ -70,7 +70,17 @@ void readRest(std::istream& in, std::string& date, std::string& value){
 	isValidDate(date);
 	std::cout << date << " | " << value << std::endl;
 }
-
+int main(int argc, char *argv[]){
+	std::fstream fs;
+	std::string tmpLine;
+	if (argc != 2)
+	{
+		std::cout << "Incorrect number of arguments" << std::endl;
+		return (1);
+	}
+	BitcoinExchange db(argv[1]);
+}
+/*
 int main(int argc, char *argv[]){
 	std::fstream fs;
 	std::string tmpLine;
@@ -97,3 +107,4 @@ int main(int argc, char *argv[]){
 	//demais linhas sao registros.
 	return (0);
 }
+*/

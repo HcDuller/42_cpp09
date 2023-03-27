@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 18:51:27 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/23 20:02:14 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:09:43 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@
 
 class BitcoinExchange {
 	public:
-		BitcoinExchange(const char* databeseFile);
+		BitcoinExchange();
 		~BitcoinExchange();
 		void addRecord(std::string& formattedDate,std::string& formatedValue) throw();
 	private:
-		BitcoinExchange();
 		BitcoinExchange(BitcoinExchange& origin);
 		BitcoinExchange& operator=(BitcoinExchange& origin);
+		const char* _databaseFile;
 		std::map<std::time_t,double> _rates;
 		std::time_t parseDate(std::string& origin);
 		double parseRate(std::string& origin);
-		void loadDataBase(std::string& dbPath);
+		void loadDataBase(const char* dbPath);
 		class NoDatabaseFoundError : public std::exception {
 			public:
 				virtual const char* what() const throw();
