@@ -1,9 +1,9 @@
-NAME = main
+NAME = RPN
 CC = c++ -std=c++98
 
 CFLAGS = -Wall -Wextra -Werror -Wconversion -g3
 
-SRC = 	
+SRC = main.cpp RPN.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
