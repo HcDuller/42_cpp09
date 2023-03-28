@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 18:51:27 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/27 21:12:04 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/28 12:14:27 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ class BitcoinExchange {
 		std::pair<std::string,std::string> getLineParts(std::string& line);
 		std::time_t parseDateStr(std::string& dateString);
 		static void evalValidChars(const char& c);
+		double getValueByDate(std::time_t date);
 		class NoDatabaseFoundError : public std::exception {
 			public:
 				virtual const char* what() const throw();

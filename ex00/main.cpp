@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:51:13 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/27 18:35:06 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/28 11:26:51 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,31 +83,3 @@ int main(int argc, char *argv[]){
 	(void)argv;
 	return (0);
 }
-/*
-int main(int argc, char *argv[]){
-	std::fstream fs;
-	std::string tmpLine;
-	if (argc != 2)
-	{
-		std::cout << "Incorrect number of arguments" << std::endl;
-		return (1);
-	}
-	fs.open(argv[1], std::fstream::in);
-	if (fs.is_open())
-	{
-		std::string a;
-		std::string b;
-		getHeaders(fs, a, b);
-		while (!fs.eof())
-		{
-			readRest(fs, a, b);
-		}
-	}else{
-		std::cout << "Couldn't open file." << std::endl;
-	}
-	fs.close();
-	//ler linha 1 para cabeçalho. deve ter duas chaves!
-	//demais linhas sao registros.
-	return (0);
-}
-*/

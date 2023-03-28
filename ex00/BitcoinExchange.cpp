@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 19:28:52 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/27 22:24:33 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/28 12:18:08 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <utility>
 #include <iostream>
 #include <algorithm>
+#include <iomanip>
 
 bool readEvalHeader(std::istream& fs){
 	std::string f_line;
@@ -152,13 +153,31 @@ void BitcoinExchange::loadDataBase(const char* dbPath){
 	double valuePart;
 	while (!fs.eof()){
 		std::getline(fs, current_read, ','); // datepart
-		*datePart = strDateToTimeT(current_read);
+		try{
+			if (current_read.length() > 0)
+				*datePart = parseDateStr(current_read);
+		}catch(std::exception& e){
+			std::cout << "Read Line " << current_read.length() << std::endl;
+			std::cout << e.what() << std::endl;
+		}
 		std::getline(fs, current_read); // valuepart
 		valuePart = strToDouble(current_read);
 		this->_rates.insert(std::make_pair<std::time_t, double>(*datePart, valuePart));
 	}
 	delete datePart;
 };
+double BitcoinExchange::getValueByDate(std::time_t date){
+	std::map<std::time_t,double>::iterator it;
+	it = this->_rates.begin();
+	if (date < (*it).first)
+		return (0);
+	it = this->_rates.find(date);
+	if (it == this->_rates.end()){
+		it = this->_rates.lower_bound(date);
+		it--;
+	}
+	return ((*it).second);
+}
 void BitcoinExchange::readPrintInput(const char* input){
 	std::fstream fs;
 	std::string current_line;
@@ -178,12 +197,11 @@ void BitcoinExchange::readPrintInput(const char* input){
 		std::getline(fs,current_line);
 		try{
 			temp = getLineParts(current_line);
-			std::cout << temp.first << "=>" << temp.second << "btc = ";
-			std::time_t t = BitcoinExchange::parseDateStr(temp.first);
+			std::cout << temp.first << "=>" << temp.second << "_btc = ";
+			std::time_t inputDate = BitcoinExchange::parseDateStr(temp.first);
 			double value = BitcoinExchange::parseRate(temp.second);
-			std::cout << value << std::endl; //replace with actual value later
-			(void)t;
-			(void)value;
+			double rate = this->getValueByDate(inputDate);
+			std::cout << std::setprecision(3) << std::fixed << rate * value << std::endl;
 		}catch(std::exception& e){
 			std::cout << "Error: " << e.what() << std::endl;
 		}
