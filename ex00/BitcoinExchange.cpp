@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 19:28:52 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/28 12:18:08 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/28 12:45:57 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,65 +22,12 @@
 #include <algorithm>
 #include <iomanip>
 
-bool readEvalHeader(std::istream& fs){
-	std::string f_line;
-	std::string f_part;
-	std::string s_part;
-	std::stringstream line_stream;
-	// Header must be: str|str, there is no definition fot str pattern, so, anything goes.
-	std::getline(fs, f_line);
-	if (f_line.length() < 3)
-		throw std::length_error("Header too short");
-	line_stream.str(f_line);
-	std::getline(line_stream, f_part, '|');
-	std::getline(line_stream, s_part);
-	return(true);
-}
 double strToDouble(std::string& input){
 	std::stringstream ss(input);
 	double res;
 	ss >> res;
 	return (res);
 }
-std::time_t strDateToTimeT(std::string& strDate){
-	std::stringstream ss;
-	std::stringstream res;
-	std::string line;
-	std::string year;
-	std::string month;
-	std::string day;
-	int i_year;
-	int i_month;
-	int i_day;
-	ss.str(strDate);
-	std::getline(ss, year, '-');
-	std::getline(ss, month, '-');
-	std::getline(ss, day, '-');
-	res << year << ' ' << month << ' ' << day;
-	res >> i_year >> i_month >> i_day;
-	std::time_t now = std::time(NULL);
-	std::tm* calendarTime = std::localtime(&now);
-	strptime(strDate.c_str(), "%Y-%m-%d", calendarTime);
-	// calendarTime->tm_sec = static_cast<long>(0);
-	// calendarTime->tm_min = static_cast<long>(0);
-	// calendarTime->tm_hour = static_cast<long>(0);
-	// calendarTime->tm_mday = static_cast<long>(i_day);
-	// calendarTime->tm_mon = static_cast<long>(i_month - 1);
-	// calendarTime->tm_year = static_cast<long>(i_year - 1900);
-	// calendarTime->tm_isdst = static_cast<long>(0);
-	std::time_t tse = std::mktime(calendarTime);
-	//delete calendarTime;
-	return (tse);
-}
-/*
-std::time_t strDateToTimeT(std::string& strDate){
-	std::time_t now = std::time(NULL);
-	std::tm* timeinfo = std::localtime(&now);
-	strptime(strDate.c_str(), "%Y-%m-%d", timeinfo);
-	std::time_t time = std::mktime(timeinfo);
-	return time;
-}
-*/
 
 //Canonical class declaration START***************************************************
 BitcoinExchange::BitcoinExchange(): _databaseFile("data.csv"){
@@ -218,6 +165,7 @@ std::pair<std::string,std::string> BitcoinExchange::getLineParts(std::string& li
 	std::getline(ss, s_part);
 	return (std::make_pair<std::string,std::string>(f_part,s_part));
 }
+
 //Custom Errors***********************************************************************
 const char* BitcoinExchange::ProhibitedInstantiation::what() const throw() {
 	return ("Tried to instantiate BitcoinExchange class improperly.");
