@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:51:13 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/27 14:35:24 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:35:06 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ int main(int argc, char *argv[]){
 		std::cout << "Incorrect number of arguments" << std::endl;
 		return (1);
 	}
-	BitcoinExchange db(argv[1]);
+	BitcoinExchange db;
+	db.readPrintInput(argv[1]);
+	(void)argv;
+	return (0);
 }
 /*
 int main(int argc, char *argv[]){
