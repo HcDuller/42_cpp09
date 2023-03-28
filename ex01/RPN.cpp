@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:03:00 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/28 16:40:44 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:44:27 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void RPN::mult(){
 };
 void RPN::executeOperator(char const& c){
 	RPN::fnPtr f = NULL;
-	for (int i = 0; i < 3; i++){
+	for (int i = 0; i < 4; i++){
 		if (this->_operatorChar[i] == c)
 			f = this->_operators[i];
 	}
