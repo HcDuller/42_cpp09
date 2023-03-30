@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:47:16 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/30 17:18:47 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:57:24 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <iostream>
 #include <algorithm>
 #include <ctime>
+#include <iomanip>
 
 //Auxiliar functions prototypes START
 bool Pair_compare(std::pair<unsigned int, unsigned int> a, std::pair<unsigned int, unsigned int> b);
@@ -79,8 +80,8 @@ void PmergeMe::sort(){
 		std:: cout << "[" << *it<< "] ";
 	}
 	std::cout<< std::endl;
-	std::cout << "Time to process a range of 5 elements with std::list " << this->_listTime << std::endl;
-	std::cout << "Time to process a range of 5 elements with std::vector " << this->_vectorTime << std::endl;
+	std::cout << std::setprecision(5) << std::fixed <<  "Time to process a range of 5 elements with std::list " << this->_listTime << "μs" << std::endl;
+	std::cout << std::setprecision(5) << std::fixed <<  "Time to process a range of 5 elements with std::vector " << this->_vectorTime << "μs" << std::endl;
 	//print Content of Vector
 	/*
 		std::cout << "After:	";
@@ -115,6 +116,8 @@ void PmergeMe::sortList(){
 	for (std::deque<std::pair<unsigned int, unsigned int> >::iterator it = K_pairs.begin(); it < K_pairs.end(); it++){
 		this->binaryListInsert((*it).first);
 	}
+	if (copy.size() == 1)
+		this->binaryListInsert(copy.front());
 	this->_listTime = std::clock() - start;
 }
 void PmergeMe::sortVector(){
@@ -140,6 +143,8 @@ void PmergeMe::sortVector(){
 	for (std::deque<std::pair<unsigned int, unsigned int> >::iterator it = K_pairs.begin(); it < K_pairs.end(); it++){
 		this->binaryVectorInsert((*it).first);
 	}
+	if (copy.size() == 1)
+		this->binaryVectorInsert(copy.front());
 	this->_vectorTime = std::clock() - start;
 }
 ;
