@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:47:16 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/30 15:44:49 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:18:47 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <utility>
 #include <iostream>
 #include <algorithm>
+#include <ctime>
 
 //Auxiliar functions prototypes START
 bool Pair_compare(std::pair<unsigned int, unsigned int> a, std::pair<unsigned int, unsigned int> b);
@@ -65,24 +66,37 @@ void PmergeMe::loadList(int nargs, char* args[]) throw(NegativeInputError,NonNum
 	}
 };
 void PmergeMe::sort(){
-	this->parseList();
+	this->sortList();
+	this->sortVector();
 	std::cout << "Before:	";
 	for (std::deque<unsigned int>::iterator it = this->_inputDeque.begin(); it != this->_inputDeque.end(); it++){
 		std:: cout << "[" << *it<< "] ";
 	}
 	std::cout << std::endl;
+	//print content of List
 	std::cout << "After:	";
 	for (std::list<unsigned int>::iterator it = this->_orderedList.begin(); it != this->_orderedList.end(); it++){
 		std:: cout << "[" << *it<< "] ";
 	}
 	std::cout<< std::endl;
+	std::cout << "Time to process a range of 5 elements with std::list " << this->_listTime << std::endl;
+	std::cout << "Time to process a range of 5 elements with std::vector " << this->_vectorTime << std::endl;
+	//print Content of Vector
+	/*
+		std::cout << "After:	";
+	for (std::vector<unsigned int>::iterator it = this->_orderedVector.begin(); it != this->_orderedVector.end(); it++){
+		std:: cout << "[" << *it<< "] ";
+	}
+	std::cout<< std::endl;
+	*/
 };
 //Public Member Functions - END
 //Private Member Functions - START
-void PmergeMe::parseList(){
+void PmergeMe::sortList(){
 	std::deque<unsigned int> copy(this->_inputDeque);
 	std::deque<std::pair<unsigned int, unsigned int> > K_pairs;
 	unsigned int bucket[2];
+	std::clock_t start = std::clock();
 
 	while (copy.size() > 1){ //create pairs (already inner-ordered), if odd, there will be a leftover value.;
 		bucket[0] = copy.front();
@@ -101,7 +115,40 @@ void PmergeMe::parseList(){
 	for (std::deque<std::pair<unsigned int, unsigned int> >::iterator it = K_pairs.begin(); it < K_pairs.end(); it++){
 		this->binaryListInsert((*it).first);
 	}
-	
+	this->_listTime = std::clock() - start;
+}
+void PmergeMe::sortVector(){
+	std::deque<unsigned int> copy(this->_inputDeque);
+	std::deque<std::pair<unsigned int, unsigned int> > K_pairs;
+	unsigned int bucket[2];
+	this->_orderedVector.reserve(this->_inputDeque.size() + 2);
+	std::clock_t start = std::clock(); (void)start;
+	while (copy.size() > 1){ //create pairs (already inner-ordered), if odd, there will be a leftover value.;
+		bucket[0] = copy.front();
+		copy.pop_front();
+		bucket[1] = copy.front();
+		copy.pop_front();
+		if (bucket[0] < bucket[1])
+			K_pairs.push_back(std::make_pair(bucket[0],bucket[1]));
+		else
+			K_pairs.push_back(std::make_pair(bucket[1],bucket[0]));
+	}
+	std::sort(K_pairs.begin(), K_pairs.end(), Pair_compare);
+	for (std::deque<std::pair<unsigned int, unsigned int> >::iterator it = K_pairs.begin(); it < K_pairs.end(); it++){
+		this->_orderedVector.push_back((*it).second);
+	}
+	for (std::deque<std::pair<unsigned int, unsigned int> >::iterator it = K_pairs.begin(); it < K_pairs.end(); it++){
+		this->binaryVectorInsert((*it).first);
+	}
+	this->_vectorTime = std::clock() - start;
+}
+;
+void PmergeMe::binaryVectorInsert(unsigned int value){
+	std::vector<unsigned int>::iterator it = std::lower_bound(this->_orderedVector.begin(), this->_orderedVector.end(), value);
+	if (it != this->_orderedVector.end())
+		this->_orderedVector.insert(it, value);
+	else
+		this->_orderedVector.insert(this->_orderedVector.begin(), value);
 }
 void PmergeMe::binaryListInsert(unsigned int value){
 	std::list<unsigned int>::iterator it = std::lower_bound(this->_orderedList.begin(), this->_orderedList.end(), value);

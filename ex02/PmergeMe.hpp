@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:47:16 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/30 15:42:07 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:09:02 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <vector>
 #include <exception>
 #include <stdexcept>
+#include <ctime>
 
 #define BLACK  "\033[30m"
 #define RED  "\033[31;1m"
@@ -47,8 +48,12 @@ private:
 	std::deque<unsigned int> _inputDeque;
 	std::list<unsigned int> _orderedList;
 	std::vector<unsigned int> _orderedVector;
+	unsigned long int _listTime;
+	unsigned long int _vectorTime;
 	void binaryListInsert(unsigned int value);
-	void parseList();
+	void binaryVectorInsert(unsigned int value);
+	void sortList();
+	void sortVector();
 public:
 	PmergeMe();
 	PmergeMe(const PmergeMe &origin);
