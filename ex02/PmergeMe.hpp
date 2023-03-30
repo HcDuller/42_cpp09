@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:47:16 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/29 20:38:54 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:42:07 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ private:
 	std::deque<unsigned int> _inputDeque;
 	std::list<unsigned int> _orderedList;
 	std::vector<unsigned int> _orderedVector;
-	void parseList(void);
+	void binaryListInsert(unsigned int value);
+	void parseList();
 public:
 	PmergeMe();
 	PmergeMe(const PmergeMe &origin);
 	PmergeMe &operator=(const PmergeMe &rhe);
 	~PmergeMe();
+	void sort();
 	void loadList(int nargs, char *args[]) throw(NegativeInputError, NonNumericInputError, NoInputError,std::invalid_argument);
 };
