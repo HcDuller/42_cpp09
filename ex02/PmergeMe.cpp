@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:47:16 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/30 20:57:50 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/31 15:10:44 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,14 +118,14 @@ void PmergeMe::sortList(){
 	}
 	if (copy.size() == 1)
 		this->binaryListInsert(copy.front());
-	this->_listTime = std::clock() - start;
+	this->_listTime = static_cast<unsigned long>(std::clock() - start);
 }
 void PmergeMe::sortVector(){
 	std::deque<unsigned int> copy(this->_inputDeque);
 	std::deque<std::pair<unsigned int, unsigned int> > K_pairs;
 	unsigned int bucket[2];
 	this->_orderedVector.reserve(this->_inputDeque.size() + 2);
-	std::clock_t start = std::clock(); (void)start;
+	std::clock_t start = std::clock();
 	while (copy.size() > 1){ //create pairs (already inner-ordered), if odd, there will be a leftover value.;
 		bucket[0] = copy.front();
 		copy.pop_front();
@@ -145,7 +145,7 @@ void PmergeMe::sortVector(){
 	}
 	if (copy.size() == 1)
 		this->binaryVectorInsert(copy.front());
-	this->_vectorTime = std::clock() - start;
+	this->_vectorTime = static_cast<unsigned long>(std::clock() - start);
 }
 ;
 void PmergeMe::binaryVectorInsert(unsigned int value){
