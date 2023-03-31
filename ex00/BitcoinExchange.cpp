@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 19:28:52 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/28 12:45:57 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:22:48 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,17 @@ std::time_t BitcoinExchange::parseDateStr(std::string& dateString){
 	return (std::mktime(&tm));
 };
 void BitcoinExchange::evalValidChars(const char& c){
-	if (!(std::isdigit(c) || c != '.'))
+	if (!(std::isdigit(c) || c == '.'))
 		throw BitcoinExchange::InvalidValueError();
 }
 double BitcoinExchange::parseRate(std::string& doubleString){
 	if (std::count(doubleString.begin(),doubleString.end(), '.') > 1)
 		throw BitcoinExchange::InvalidValueError();
-	std::for_each(doubleString.begin(), doubleString.end(), BitcoinExchange::evalValidChars);
+	std::string::iterator it = doubleString.begin();
+	while(std::iswspace(*it)){
+		it++;
+	}
+	std::for_each(it, doubleString.end(), BitcoinExchange::evalValidChars);
 	std::stringstream ss(doubleString);
 	double value;
 	ss >> value;
@@ -144,10 +148,11 @@ void BitcoinExchange::readPrintInput(const char* input){
 		std::getline(fs,current_line);
 		try{
 			temp = getLineParts(current_line);
-			std::cout << temp.first << "=>" << temp.second << "_btc = ";
+			std::cout << temp.first << "=>" ;
 			std::time_t inputDate = BitcoinExchange::parseDateStr(temp.first);
 			double value = BitcoinExchange::parseRate(temp.second);
 			double rate = this->getValueByDate(inputDate);
+			std::cout << temp.second << "_btc = ";
 			std::cout << std::setprecision(3) << std::fixed << rate * value << std::endl;
 		}catch(std::exception& e){
 			std::cout << "Error: " << e.what() << std::endl;

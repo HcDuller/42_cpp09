@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:47:16 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/30 19:57:24 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/30 20:57:50 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,16 @@ void PmergeMe::loadList(int nargs, char* args[]) throw(NegativeInputError,NonNum
 void PmergeMe::sort(){
 	this->sortList();
 	this->sortVector();
-	std::cout << "Before:	";
-	for (std::deque<unsigned int>::iterator it = this->_inputDeque.begin(); it != this->_inputDeque.end(); it++){
-		std:: cout << "[" << *it<< "] ";
-	}
-	std::cout << std::endl;
-	//print content of List
-	std::cout << "After:	";
-	for (std::list<unsigned int>::iterator it = this->_orderedList.begin(); it != this->_orderedList.end(); it++){
-		std:: cout << "[" << *it<< "] ";
-	}
+	// std::cout << "Before:	";
+	// for (std::deque<unsigned int>::iterator it = this->_inputDeque.begin(); it != this->_inputDeque.end(); it++){
+	// 	std:: cout << "[" << *it<< "] ";
+	// }
+	// std::cout << std::endl;
+	// //print content of List
+	// std::cout << "After:	";
+	// for (std::list<unsigned int>::iterator it = this->_orderedList.begin(); it != this->_orderedList.end(); it++){
+	// 	std:: cout << "[" << *it<< "] ";
+	// }
 	std::cout<< std::endl;
 	std::cout << std::setprecision(5) << std::fixed <<  "Time to process a range of 5 elements with std::list " << this->_listTime << "μs" << std::endl;
 	std::cout << std::setprecision(5) << std::fixed <<  "Time to process a range of 5 elements with std::vector " << this->_vectorTime << "μs" << std::endl;
