@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 19:28:52 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/31 14:22:48 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:45:59 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ double BitcoinExchange::parseRate(std::string& doubleString){
 	if (std::count(doubleString.begin(),doubleString.end(), '.') > 1)
 		throw BitcoinExchange::InvalidValueError();
 	std::string::iterator it = doubleString.begin();
-	while(std::iswspace(*it)){
+	while(std::iswspace(static_cast<wint_t>(*it))){
 		it++;
 	}
 	std::for_each(it, doubleString.end(), BitcoinExchange::evalValidChars);
