@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:47:16 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/31 20:13:42 by coder            ###   ########.fr       */
+/*   Updated: 2023/04/02 19:43:23 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void PmergeMe::loadList(int nargs, char* args[]) throw(NegativeInputError,NonNum
 		if (!ss.eof())
 		{
 			std::string errMsg = "The argument [";
-			errMsg = errMsg + args[i] + "] cannot is invalid.";
+			errMsg = errMsg + args[i] + "] is invalid.";
 			throw(std::invalid_argument(errMsg.c_str()));
 		}
 		if (ss.fail())
