@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:03:00 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/03/28 16:44:27 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/04/04 11:55:34 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void RPN::calculate(char * rpn_ex){
 				break;
 			if (std::isdigit(ss.peek()))
 			{
-				ss >> exp_val;
+				exp_val = ss.get() - 48;
 				this->_vals.push(exp_val);
 			}
 			else

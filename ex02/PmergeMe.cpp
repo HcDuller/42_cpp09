@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:47:16 by hde-camp          #+#    #+#             */
-/*   Updated: 2023/04/02 19:43:23 by hde-camp         ###   ########.fr       */
+/*   Updated: 2023/04/04 11:52:30 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,17 +150,11 @@ void PmergeMe::sortVector(){
 ;
 void PmergeMe::binaryVectorInsert(unsigned int value){
 	std::vector<unsigned int>::iterator it = std::lower_bound(this->_orderedVector.begin(), this->_orderedVector.end(), value);
-	if (it != this->_orderedVector.end())
-		this->_orderedVector.insert(it, value);
-	else
-		this->_orderedVector.insert(this->_orderedVector.begin(), value);
+	this->_orderedVector.insert(it, value);
 }
 void PmergeMe::binaryListInsert(unsigned int value){
 	std::list<unsigned int>::iterator it = std::lower_bound(this->_orderedList.begin(), this->_orderedList.end(), value);
-	if (it != this->_orderedList.end())
-		this->_orderedList.insert(it, value);
-	else
-		this->_orderedList.push_front(value);
+	this->_orderedList.insert(it, value);
 }
 //Private Member Functions - END
 //Member Errors START
